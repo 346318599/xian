@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://346318599.github.io/xian/sitemap.xml
