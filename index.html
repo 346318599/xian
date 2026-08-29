@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>五行修仙录</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="game-container">
+        <!-- 顶部信息栏 -->
+        <header class="game-header">
+            <div class="header-left">
+                <h1>五行修仙录</h1>
+                <span id="mode-display">经典模式</span>
+                <span id="level-display">第 1 关</span>
+            </div>
+            <div class="header-center">
+                <span id="money-display">金钱 0</span>
+                <span id="ticket-display">普通券 0 | 高级券 0</span>
+            </div>
+            <div class="header-right">
+                <button class="icon-btn" id="bag-btn" title="背包">🎒</button>
+                <button class="icon-btn" id="shop-btn" title="商店">🏪</button>
+                <button class="icon-btn" id="gacha-btn" title="抽卡">🎴</button>
+                <button class="icon-btn" id="save-btn" title="存档">💾</button>
+                <button class="icon-btn" id="load-btn" title="读档">📂</button>
+            </div>
+        </header>
+
+        <!-- 主内容区 -->
+        <main id="main-panel">
+            <!-- 模式选择 -->
+            <div id="screen-mode" class="screen active">
+                <div class="mode-screen">
+                    <h2>五行修仙录</h2>
+                    <p class="subtitle">选择你的修仙之路</p>
+                    <div class="mode-buttons">
+                        <button class="mode-card" id="mode-classic" data-mode="classic">
+                            <div class="mode-icon">⚔️</div>
+                            <h3>经典模式</h3>
+                            <p>挑战 300 关，击败混沌天魔</p>
+                        </button>
+                        <button class="mode-card" id="mode-endless" data-mode="endless" disabled>
+                            <div class="mode-icon">∞</div>
+                            <h3>无尽模式</h3>
+                            <p>通关经典模式后解锁</p>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 角色创建 -->
+            <div id="screen-create" class="screen">
+                <div class="create-screen">
+                    <h2>创建角色</h2>
+                    <div class="create-layout">
+                        <div class="create-section sect-section">
+                            <h3>选择宗门</h3>
+                            <div id="sect-list" class="sect-list"></div>
+                            <div id="sect-preview" class="sect-preview">
+                                <p>请选择宗门</p>
+                            </div>
+                        </div>
+                        <div class="create-section attr-section">
+                            <h3>分配属性点 <span class="points-remain">剩余：<span id="attr-points">60</span></span></h3>
+                            <div id="attr-editor" class="attr-editor"></div>
+                            <div class="attr-desc">
+                                <p><b>血量</b> 影响生命上限</p>
+                                <p><b>力量</b> 影响物理伤害</p>
+                                <p><b>内力</b> 影响法术伤害与内力上限</p>
+                                <p><b>体质</b> 影响防御与恢复</p>
+                                <p><b>敏捷</b> 影响先手、闪避、暴击</p>
+                                <p><b>气运</b> 影响奖励品质与抽卡</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="create-actions">
+                        <button class="big-btn" id="back-to-mode-btn">返回</button>
+                        <button class="big-btn primary" id="start-combat-btn">踏入仙途</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 横屏战斗 -->
+            <div id="screen-combat" class="screen">
+                <div class="combat-arena">
+                    <!-- 战场 -->
+                    <div class="battlefield">
+                        <!-- 玩家侧 -->
+                        <div class="actor-side player-side">
+                            <div class="actor-model" id="player-model">
+                                <div class="cultivator" id="player-cultivator">
+                                    <div class="body"></div>
+                                    <div class="head"></div>
+                                    <div class="hair"></div>
+                                    <div class="weapon"></div>
+                                    <div class="aura"></div>
+                                </div>
+                            </div>
+                            <div class="actor-info">
+                                <div class="actor-name">修仙者</div>
+                                <div class="element-badge" id="player-element">木</div>
+                                <div class="hp-bar"><div id="player-hp-bar" class="hp-fill"></div></div>
+                                <div class="hp-text" id="player-hp-text">400/400</div>
+                                <div class="mp-bar"><div id="player-mp-bar" class="mp-fill"></div></div>
+                                <div class="mp-text" id="player-mp-text">100/100</div>
+                            </div>
+                        </div>
+
+                        <!-- 中间信息 -->
+                        <div class="battle-center">
+                            <div class="round-info">回合 <span id="combat-round">1</span></div>
+                            <div class="vs-mark">VS</div>
+                            <div class="combat-log" id="combat-log"></div>
+                        </div>
+
+                        <!-- 敌人侧 -->
+                        <div class="actor-side enemy-side">
+                            <div class="actor-model" id="enemy-model">
+                                <div class="monster" id="enemy-monster">
+                                    <div class="m-body"></div>
+                                    <div class="m-eyes"></div>
+                                    <div class="m-aura"></div>
+                                </div>
+                            </div>
+                            <div class="actor-info">
+                                <div class="actor-name" id="enemy-name">妖兽</div>
+                                <div class="element-badge enemy" id="enemy-element">金</div>
+                                <div class="hp-bar"><div id="enemy-hp-bar" class="hp-fill enemy"></div></div>
+                                <div class="hp-text" id="enemy-hp-text">100/100</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 技能栏 -->
+                    <div class="skill-bar" id="combat-actions"></div>
+                </div>
+            </div>
+
+            <!-- 游戏结束 -->
+            <div id="screen-gameover" class="screen">
+                <div class="gameover-screen">
+                    <h2 id="gameover-title">道友陨落</h2>
+                    <p id="gameover-desc">本局修仙结束</p>
+                    <div id="gameover-stats"></div>
+                    <button class="big-btn primary" id="restart-btn">重新开局</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- 背包弹窗 -->
+    <div class="modal" id="bag-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>背包</h2>
+                <button class="close-btn" data-close="bag-modal">×</button>
+            </div>
+            <div class="modal-body">
+                <div id="bag-equipment" class="bag-section">
+                    <h3>装备</h3>
+                    <div class="bag-grid" id="bag-equipment-grid"></div>
+                </div>
+                <div id="bag-items" class="bag-section">
+                    <h3>道具</h3>
+                    <div class="bag-grid" id="bag-items-grid"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 商店弹窗 -->
+    <div class="modal" id="shop-modal">
+        <div class="modal-content wide">
+            <div class="modal-header">
+                <h2>神秘商店</h2>
+                <button class="close-btn" data-close="shop-modal">×</button>
+            </div>
+            <div class="modal-body">
+                <p class="shop-money">当前金钱：<span id="shop-money">0</span></p>
+                <div class="shop-grid" id="shop-grid"></div>
+                <div class="shop-actions">
+                    <button class="big-btn" id="refresh-shop-btn">刷新商店（<span id="refresh-cost">50</span>）</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 抽卡弹窗 -->
+    <div class="modal" id="gacha-modal">
+        <div class="modal-content wide">
+            <div class="modal-header">
+                <h2>抽卡</h2>
+                <button class="close-btn" data-close="gacha-modal">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="gacha-pools" id="gacha-pools"></div>
+                <div class="gacha-result" id="gacha-result"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 奖励弹窗 -->
+    <div class="modal" id="reward-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>战胜奖励</h2>
+                <button class="close-btn" id="reward-close-btn">×</button>
+            </div>
+            <div class="modal-body">
+                <p id="reward-desc">选择一项奖励</p>
+                <div class="reward-grid" id="reward-grid"></div>
+                <div class="reward-actions">
+                    <button class="big-btn primary" id="next-level-btn">下一关</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 技能装备弹窗 -->
+    <div class="modal" id="skill-equip-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>装备功法</h2>
+                <button class="close-btn" data-close="skill-equip-modal">×</button>
+            </div>
+            <div class="modal-body">
+                <p>选择要替换的技能槽位</p>
+                <div class="skill-slot-list" id="skill-slot-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 特效层 -->
+    <div id="effects-layer"></div>
+
+    <script src="js/data/skills.js"></script>
+    <script src="js/data/enemies.js"></script>
+    <script src="js/data/items.js"></script>
+    <script src="js/core/gameState.js"></script>
+    <script src="js/core/combat.js"></script>
+    <script src="js/core/rewards.js"></script>
+    <script src="js/core/shop.js"></script>
+    <script src="js/core/gacha.js"></script>
+    <script src="js/core/save.js"></script>
+    <script src="js/ui/ui.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
