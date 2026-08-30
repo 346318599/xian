@@ -1,4 +1,4 @@
-// 五行修仙录 - 商店系统
+// 仙途 - 商店系统
 
 class ShopSystem {
     constructor() {

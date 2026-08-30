@@ -1,4 +1,4 @@
-// 五行修仙录 - 抽卡系统
+// 仙途 - 抽卡系统
 
 class GachaSystem {
     constructor() {

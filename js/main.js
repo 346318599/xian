@@ -1,4 +1,4 @@
-// 五行修仙录 - 主入口
+// 仙途 - 主入口
 
 let currentRewards = [];
 let selectedRewardIndex = null;
@@ -26,7 +26,7 @@ function init() {
 
 function bindEvents() {
     // 模式选择
-    document.querySelectorAll('.mode-card').forEach(btn => {
+    document.querySelectorAll('.mode-menu-item[data-mode]').forEach(btn => {
         btn.addEventListener('click', () => {
             if (btn.disabled) return;
             game.mode = btn.dataset.mode;
@@ -34,6 +34,21 @@ function bindEvents() {
             UI.renderCreateScreen();
             UI.showScreen('screen-create');
         });
+    });
+    
+    // 设置入口
+    document.getElementById('mode-settings').addEventListener('click', () => {
+        UI.showModal('settings-modal');
+    });
+    
+    // 清除存档
+    document.getElementById('clear-save-btn').addEventListener('click', () => {
+        if (confirm('确定要清除所有存档吗？此操作无法撤销。')) {
+            localStorage.removeItem('wuxia_roguelike_save');
+            UI.showMessage('存档已清除');
+            UI.hideModal('settings-modal');
+            init();
+        }
     });
     
     // 返回模式选择

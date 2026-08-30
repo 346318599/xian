@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>五行修仙录 - 水墨国风回合制修仙网页游戏</title>
-    <meta name="description" content="《五行修仙录》是一款水墨国风回合制修仙网页游戏，包含经典模式、无尽模式、五行克制、宗门功法、技能特效、背包商店与抽卡系统。">
-    <meta name="keywords" content="五行修仙录, 修仙游戏, 回合制, 网页游戏, 国风, 五行, 宗门, 抽卡">
+    <title>仙途 - 水墨国风回合制修仙网页游戏</title>
+    <meta name="description" content="《仙途》是一款水墨国风回合制修仙网页游戏，包含经典模式、无尽模式、五行克制、宗门功法、技能特效、背包商店与抽卡系统。">
+    <meta name="keywords" content="仙途, 修仙游戏, 回合制, 网页游戏, 国风, 五行, 宗门, 抽卡">
     <meta name="author" content="346318599">
     <link rel="canonical" href="https://www.yxianlucl.xyz/">
     <link rel="stylesheet" href="css/style.css">
@@ -15,7 +15,7 @@
         <!-- 顶部信息栏 -->
         <header class="game-header">
             <div class="header-left">
-                <h1>五行修仙录</h1>
+                <h1>仙途</h1>
                 <span id="mode-display">经典模式</span>
                 <span id="level-display">第 1 关</span>
             </div>
@@ -37,19 +37,29 @@
             <!-- 模式选择 -->
             <div id="screen-mode" class="screen active">
                 <div class="mode-screen">
-                    <h2>五行修仙录</h2>
-                    <p class="subtitle">选择你的修仙之路</p>
-                    <div class="mode-buttons">
-                        <button class="mode-card" id="mode-classic" data-mode="classic">
-                            <div class="mode-icon">⚔️</div>
-                            <h3>经典模式</h3>
-                            <p>挑战 300 关，击败混沌天魔</p>
+                    <div class="mode-bg-decoration">
+                        <div class="lotus-glow"></div>
+                        <div class="cloud cloud-1"></div>
+                        <div class="cloud cloud-2"></div>
+                        <div class="cloud cloud-3"></div>
+                    </div>
+                    <nav class="mode-menu">
+                        <button class="mode-menu-item" id="mode-classic" data-mode="classic">
+                            <span class="menu-dot"></span>
+                            <span class="menu-text">经典</span>
                         </button>
-                        <button class="mode-card" id="mode-endless" data-mode="endless" disabled>
-                            <div class="mode-icon">∞</div>
-                            <h3>无尽模式</h3>
-                            <p>通关经典模式后解锁</p>
+                        <button class="mode-menu-item" id="mode-endless" data-mode="endless" disabled>
+                            <span class="menu-dot"></span>
+                            <span class="menu-text">无尽</span>
                         </button>
+                        <button class="mode-menu-item" id="mode-settings">
+                            <span class="menu-dot"></span>
+                            <span class="menu-text">设置</span>
+                        </button>
+                    </nav>
+                    <div class="mode-title-vertical">
+                        <span class="title-main">仙途</span>
+                        <span class="title-sub">IMMORTAL PATH</span>
                     </div>
                 </div>
             </div>
@@ -232,6 +242,23 @@
             <div class="modal-body">
                 <p>选择要替换的技能槽位</p>
                 <div class="skill-slot-list" id="skill-slot-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 设置弹窗 -->
+    <div class="modal" id="settings-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>设置</h2>
+                <button class="close-btn" data-close="settings-modal">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="settings-group">
+                    <h3>游戏数据</h3>
+                    <button class="big-btn danger" id="clear-save-btn">清除存档</button>
+                    <p class="settings-hint">清除后所有进度将丢失，无法恢复。</p>
+                </div>
             </div>
         </div>
     </div>

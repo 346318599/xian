@@ -1,4 +1,4 @@
-// 五行修仙录 - 战斗系统
+// 仙途 - 战斗系统
 
 class CombatSystem {
     constructor() {

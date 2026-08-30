@@ -1,4 +1,4 @@
-// 五行修仙录 - 奖励系统
+// 仙途 - 奖励系统
 
 class RewardSystem {
     constructor() {

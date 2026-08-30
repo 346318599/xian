@@ -1,4 +1,4 @@
-// 五行修仙录 - 游戏状态管理
+// 仙途 - 游戏状态管理
 
 class GameState {
     constructor() {

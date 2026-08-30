@@ -1,4 +1,4 @@
-// 五行修仙录 - 存档系统
+// 仙途 - 存档系统
 
 const SAVE_KEY = 'wuxia_roguelike_save';
 

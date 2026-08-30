@@ -1,4 +1,4 @@
-// 五行修仙录 - 道具、法器、商店数据
+// 仙途 - 道具、法器、商店数据
 
 const ITEM_TYPES = {
     CONSUMABLE: 'consumable',
