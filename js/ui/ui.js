@@ -64,13 +64,26 @@ const UI = {
     // 渲染角色创建
     renderCreateScreen() {
         const sectList = document.getElementById('sect-list');
-        sectList.innerHTML = Object.values(SECTS).map(sect => `
-            <div class="sect-card ${game.player.sectId === sect.id ? 'selected' : ''}" data-sect="${sect.id}" onclick="selectSect('${sect.id}')">
-                <h4>${sect.name}</h4>
-                <p class="element">五行偏向：${sect.element}</p>
-                <p class="desc">${sect.desc}</p>
-            </div>
-        `).join('');
+        sectList.innerHTML = Object.values(SECTS).map(sect => {
+            const unlocked = game.unlockedSects.includes(sect.id);
+            const selected = game.player.sectId === sect.id;
+            if (unlocked) {
+                return `
+                    <div class="sect-card ${selected ? 'selected' : ''}" data-sect="${sect.id}" onclick="selectSect('${sect.id}')">
+                        <h4>${sect.name}</h4>
+                        <p class="element">五行偏向：${sect.element}</p>
+                        <p class="desc">${sect.desc}</p>
+                    </div>
+                `;
+            }
+            return `
+                <div class="sect-card locked ${selected ? 'selected' : ''}" data-sect="${sect.id}" onclick="selectSect('${sect.id}')">
+                    <h4>???</h4>
+                    <p class="element">隐藏宗门</p>
+                    <p class="desc">收集该宗门 3 项核心功法后解锁</p>
+                </div>
+            `;
+        }).join('');
         
         this.renderSectPreview();
         this.renderAttrEditor();

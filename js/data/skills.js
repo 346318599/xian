@@ -59,6 +59,24 @@ const SECTS = {
         coreSkills: ['xuanbing_xinfa', 'xuanbing_hanqi', 'xuanbing_bingfeng', 'xuanbing_xuanming'],
         startingSkills: ['xuanbing_hanqi', 'xuanbing_bingfeng', 'basic_dao', 'basic_dun'],
         bonus: { inner: 10, agility: 5 }
+    },
+    tianjian: {
+        id: 'tianjian',
+        name: '天剑阁',
+        element: ELEMENTS.METAL,
+        desc: '金系剑修宗门，追求一剑破万法（隐藏宗门，收集核心功法解锁）',
+        coreSkills: ['tianjian_xinfa', 'tianjian_zhan', 'pojun_jian', 'wanjian_guizong'],
+        startingSkills: ['tianjian_zhan', 'gengjin_hushen', 'basic_dao', 'basic_dun'],
+        bonus: { strength: 8, agility: 5 }
+    },
+    houtu: {
+        id: 'houtu',
+        name: '厚土宗',
+        element: ELEMENTS.EARTH,
+        desc: '土系体修宗门，以不动如山之势碾压对手（隐藏宗门，收集核心功法解锁）',
+        coreSkills: ['houtu_xinfa', 'yanquan', 'tulao', 'budong_rushan'],
+        startingSkills: ['yanquan', 'tulao', 'basic_dao', 'basic_dun'],
+        bonus: { body: 8, hp: 10 }
     }
 };
 
@@ -257,6 +275,125 @@ const SKILL_DB = {
         desc: '强力的混伤掌法'
     },
 
+    // 天剑阁
+    tianjian_xinfa: {
+        id: 'tianjian_xinfa',
+        name: '天剑心法',
+        element: ELEMENTS.METAL,
+        type: SKILL_TYPES.PASSIVE,
+        rarity: RARITIES.EPIC,
+        effect: { physicalDamage: 0.25, critBoost: 0.10 },
+        desc: '被动：物理伤害+25%，暴击率+10%'
+    },
+    tianjian_zhan: {
+        id: 'tianjian_zhan',
+        name: '天剑斩',
+        element: ELEMENTS.METAL,
+        type: SKILL_TYPES.ACTIVE,
+        damageType: DAMAGE_TYPES.PHYSICAL,
+        rarity: RARITIES.UNCOMMON,
+        baseDamage: 90,
+        pp: 15,
+        mpCost: 15,
+        desc: '金系剑气斩击，锐不可当'
+    },
+    pojun_jian: {
+        id: 'pojun_jian',
+        name: '破军剑',
+        element: ELEMENTS.METAL,
+        type: SKILL_TYPES.ACTIVE,
+        damageType: DAMAGE_TYPES.PHYSICAL,
+        rarity: RARITIES.RARE,
+        baseDamage: 130,
+        pp: 10,
+        mpCost: 25,
+        desc: '破军一剑，无视部分防御'
+    },
+    wanjian_guizong: {
+        id: 'wanjian_guizong',
+        name: '万剑归宗',
+        element: ELEMENTS.METAL,
+        type: SKILL_TYPES.ACTIVE,
+        damageType: DAMAGE_TYPES.PHYSICAL,
+        rarity: RARITIES.EPIC,
+        baseDamage: 200,
+        pp: 8,
+        mpCost: 50,
+        desc: '万剑齐发，金属性极致爆发'
+    },
+    gengjin_hushen: {
+        id: 'gengjin_hushen',
+        name: '庚金护身',
+        element: ELEMENTS.METAL,
+        type: SKILL_TYPES.BUFF,
+        rarity: RARITIES.RARE,
+        effect: { defense: 25 },
+        duration: 3,
+        pp: 10,
+        mpCost: 25,
+        desc: '庚金护体，大幅提升防御'
+    },
+
+    // 厚土宗
+    houtu_xinfa: {
+        id: 'houtu_xinfa',
+        name: '厚土心法',
+        element: ELEMENTS.EARTH,
+        type: SKILL_TYPES.PASSIVE,
+        rarity: RARITIES.EPIC,
+        effect: { defenseBoost: 0.2 },
+        desc: '被动：防御+20%'
+    },
+    yanquan: {
+        id: 'yanquan',
+        name: '岩拳',
+        element: ELEMENTS.EARTH,
+        type: SKILL_TYPES.ACTIVE,
+        damageType: DAMAGE_TYPES.PHYSICAL,
+        rarity: RARITIES.UNCOMMON,
+        baseDamage: 75,
+        pp: 15,
+        mpCost: 15,
+        effect: { stun: 1 },
+        desc: '土属性重拳，有概率眩晕敌人'
+    },
+    tulao: {
+        id: 'tulao',
+        name: '土牢',
+        element: ELEMENTS.EARTH,
+        type: SKILL_TYPES.CONTROL,
+        rarity: RARITIES.RARE,
+        effect: { stun: 2 },
+        duration: 2,
+        pp: 10,
+        mpCost: 30,
+        desc: '土牢禁锢敌人2回合'
+    },
+    budong_rushan: {
+        id: 'budong_rushan',
+        name: '不动如山',
+        element: ELEMENTS.EARTH,
+        type: SKILL_TYPES.BUFF,
+        rarity: RARITIES.EPIC,
+        effect: { defenseBoost: 0.5 },
+        duration: 3,
+        pp: 8,
+        mpCost: 45,
+        desc: '防御大幅提升，持续3回合'
+    },
+    diliebo: {
+        id: 'diliebo',
+        name: '地裂波',
+        element: ELEMENTS.EARTH,
+        type: SKILL_TYPES.ACTIVE,
+        damageType: DAMAGE_TYPES.PHYSICAL,
+        rarity: RARITIES.UNCOMMON,
+        baseDamage: 85,
+        pp: 15,
+        mpCost: 18,
+        desc: '引发地裂冲击'
+    },
+
     // 混沌/传说
     chaos_wuji: {
         id: 'chaos_wuji',
@@ -278,6 +415,42 @@ const SKILL_DB = {
         rarity: RARITIES.LEGENDARY,
         effect: { dodgeBoost: 0.15, critBoost: 0.15 },
         desc: '被动：闪避+15%，暴击+15%'
+    },
+    chaos_yinyang: {
+        id: 'chaos_yinyang',
+        name: '阴阳逆转',
+        element: ELEMENTS.CHAOS,
+        type: SKILL_TYPES.ACTIVE,
+        damageType: DAMAGE_TYPES.MIXED,
+        rarity: RARITIES.LEGENDARY,
+        baseDamage: 220,
+        pp: 5,
+        mpCost: 55,
+        desc: '逆转阴阳，无视五行克制'
+    },
+    jin_gang_palm: {
+        id: 'jin_gang_palm',
+        name: '金刚掌',
+        element: ELEMENTS.METAL,
+        type: SKILL_TYPES.ACTIVE,
+        damageType: DAMAGE_TYPES.PHYSICAL,
+        rarity: RARITIES.RARE,
+        baseDamage: 110,
+        pp: 12,
+        mpCost: 20,
+        desc: '刚猛无匹的金属性掌法'
+    },
+    ku_rong: {
+        id: 'ku_rong',
+        name: '枯荣术',
+        element: ELEMENTS.WOOD,
+        type: SKILL_TYPES.BUFF,
+        rarity: RARITIES.EPIC,
+        effect: { hotPercent: 12 },
+        duration: 3,
+        pp: 8,
+        mpCost: 35,
+        desc: '枯荣轮转，每回合回复12%生命'
     }
 };
 
