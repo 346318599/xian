@@ -426,7 +426,7 @@ const UI = {
             </div>
         `).join('');
         
-        document.getElementById('next-level-btn').disabled = selectedRewardIndex === null;
+        // 下一关按钮始终可用，允许跳过奖励
         
         // 渲染奖励弹窗中的商店
         this.renderRewardShop();

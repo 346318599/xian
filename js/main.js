@@ -312,6 +312,13 @@ function equipSkillToSlot(slotIndex) {
 // 进入下一关
 function nextLevel() {
     UI.hideModal('reward-modal');
+    
+    // 未选择奖励则直接跳过
+    if (selectedRewardIndex === null && currentRewards.length > 0) {
+        currentRewards = [];
+        UI.showMessage('跳过奖励');
+    }
+    
     const result = game.nextLevel();
     if (result === 'victory') {
         UI.renderGameOver('victory');

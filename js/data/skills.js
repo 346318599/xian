@@ -73,7 +73,7 @@ const SKILL_DB = {
         damageType: DAMAGE_TYPES.PHYSICAL,
         rarity: RARITIES.COMMON,
         baseDamage: 45,
-        pp: 10,
+        pp: 20,
         mpCost: 0,
         desc: '最基础的金属性刀法'
     },
@@ -85,7 +85,7 @@ const SKILL_DB = {
         rarity: RARITIES.COMMON,
         effect: { defense: 15 },
         duration: 3,
-        pp: 6,
+        pp: 15,
         mpCost: 15,
         desc: '提升防御，持续3回合'
     },
@@ -97,7 +97,7 @@ const SKILL_DB = {
         damageType: DAMAGE_TYPES.MAGIC,
         rarity: RARITIES.COMMON,
         baseDamage: 55,
-        pp: 10,
+        pp: 20,
         mpCost: 10,
         desc: '最基础的火系法术'
     },
@@ -109,7 +109,7 @@ const SKILL_DB = {
         rarity: RARITIES.COMMON,
         effect: { healPercent: 15 },
         duration: 1,
-        pp: 6,
+        pp: 15,
         mpCost: 20,
         desc: '回复15%最大生命值'
     },
@@ -132,7 +132,7 @@ const SKILL_DB = {
         damageType: DAMAGE_TYPES.PHYSICAL,
         rarity: RARITIES.UNCOMMON,
         baseDamage: 80,
-        pp: 6,
+        pp: 15,
         mpCost: 15,
         desc: '木属性剑气斩击'
     },
@@ -146,7 +146,7 @@ const SKILL_DB = {
         baseDamage: 40,
         dotDamage: 25,
         dotDuration: 3,
-        pp: 5,
+        pp: 10,
         mpCost: 25,
         desc: '造成毒素伤害，并附加3回合毒伤'
     },
@@ -158,7 +158,7 @@ const SKILL_DB = {
         rarity: RARITIES.RARE,
         effect: { healPercent: 25, hotPercent: 8 },
         duration: 3,
-        pp: 4,
+        pp: 10,
         mpCost: 30,
         desc: '立即回复25%生命，并持续3回合每回合回复8%'
     },
@@ -181,7 +181,7 @@ const SKILL_DB = {
         damageType: DAMAGE_TYPES.PHYSICAL,
         rarity: RARITIES.UNCOMMON,
         baseDamage: 100,
-        pp: 5,
+        pp: 15,
         mpCost: 15,
         desc: '强力的火焰斩击'
     },
@@ -193,7 +193,7 @@ const SKILL_DB = {
         rarity: RARITIES.RARE,
         effect: { damageBoost: 0.4, selfDamagePerTurn: 8 },
         duration: 3,
-        pp: 4,
+        pp: 10,
         mpCost: 25,
         desc: '提升40%伤害，但每回合损失8%生命'
     },
@@ -205,7 +205,7 @@ const SKILL_DB = {
         damageType: DAMAGE_TYPES.MAGIC,
         rarity: RARITIES.EPIC,
         baseDamage: 180,
-        pp: 3,
+        pp: 8,
         mpCost: 50,
         desc: '极致的火系爆发'
     },
@@ -228,7 +228,7 @@ const SKILL_DB = {
         damageType: DAMAGE_TYPES.MAGIC,
         rarity: RARITIES.UNCOMMON,
         baseDamage: 70,
-        pp: 8,
+        pp: 15,
         mpCost: 12,
         desc: '冰系法术攻击'
     },
@@ -240,7 +240,7 @@ const SKILL_DB = {
         rarity: RARITIES.RARE,
         effect: { stun: 1, speedDown: 0.3 },
         duration: 2,
-        pp: 4,
+        pp: 10,
         mpCost: 30,
         desc: '冻结敌人1回合，并减速2回合'
     },
@@ -252,7 +252,7 @@ const SKILL_DB = {
         damageType: DAMAGE_TYPES.MIXED,
         rarity: RARITIES.EPIC,
         baseDamage: 140,
-        pp: 4,
+        pp: 8,
         mpCost: 40,
         desc: '强力的混伤掌法'
     },
@@ -266,7 +266,7 @@ const SKILL_DB = {
         damageType: DAMAGE_TYPES.MIXED,
         rarity: RARITIES.LEGENDARY,
         baseDamage: 250,
-        pp: 2,
+        pp: 5,
         mpCost: 60,
         desc: '混沌属性的强大攻击，不受五行克制影响'
     },
