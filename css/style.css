@@ -91,6 +91,11 @@ body {
     font-size: 18px;
     color: var(--text-muted);
     letter-spacing: 4px;
+    margin-bottom: 32px;
+}
+
+#orientation-lock .big-btn {
+    font-size: 16px;
 }
 
 @keyframes rotatePhone {

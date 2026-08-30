@@ -35,7 +35,22 @@ function bindEvents() {
             UI.showScreen('screen-create');
         });
     });
-    
+
+    // 强制横屏 / 继续游戏
+    document.getElementById('force-landscape-btn').addEventListener('click', async () => {
+        try {
+            if (screen.orientation && screen.orientation.lock) {
+                await screen.orientation.lock('landscape');
+            } else {
+                // 不支持锁定则直接继续
+                document.getElementById('orientation-lock').style.display = 'none';
+            }
+        } catch (e) {
+            // 锁定失败（如系统旋转锁定）则允许继续
+            document.getElementById('orientation-lock').style.display = 'none';
+        }
+    });
+
     // 设置入口
     document.getElementById('mode-settings').addEventListener('click', () => {
         UI.showModal('settings-modal');
@@ -256,11 +271,10 @@ function selectReward(index) {
     if (reward.type === 'skill') {
         pendingSkillReward = reward.data;
         UI.renderSkillEquip(reward.data);
-        UI.showModal('skill-equip-modal');
+        UI.showModal('skill-equip-modal', true);
     } else {
         rewards.applyReward(reward);
         currentRewards = [];
-        selectedRewardIndex = null;
         UI.renderRewards([]);
         UI.updateHeader();
         UI.renderCombat();
@@ -271,19 +285,18 @@ function selectReward(index) {
 // 装备功法到指定槽位
 function equipSkillToSlot(slotIndex) {
     if (!pendingSkillReward) return;
-    
+
     game.equipSkill(slotIndex, pendingSkillReward);
     game.collectSkill(pendingSkillReward.id);
-    
+
     const reward = currentRewards[selectedRewardIndex];
     rewards.applyReward(reward);
-    
+
     currentRewards = [];
-    selectedRewardIndex = null;
     pendingSkillReward = null;
-    
+    // 保留 selectedRewardIndex，使「下一关」按钮保持可点击
+
     UI.hideModal('skill-equip-modal');
-    UI.hideModal('reward-modal');
     UI.renderRewards([]);
     UI.updateHeader();
     UI.renderCombat();

@@ -18,8 +18,8 @@ const UI = {
     },
 
     // 弹窗控制
-    showModal(modalId) {
-        this.hideAllModals();
+    showModal(modalId, keepOthers = false) {
+        if (!keepOthers) this.hideAllModals();
         const modal = document.getElementById(modalId);
         if (modal) {
             modal.classList.add('active');
