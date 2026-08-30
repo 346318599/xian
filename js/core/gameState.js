@@ -115,7 +115,10 @@ class GameState {
         }
         
         // 初始功法
-        this.player.skills = sect.startingSkills.map(id => ({ ...getSkill(id), currentCd: 0 }));
+        this.player.skills = sect.startingSkills.map(id => {
+            const skill = getSkill(id);
+            return { ...skill, currentPp: skill.pp || 0 };
+        });
         
         this.recalculateStats();
         this.player.hp = this.player.maxHp;
@@ -127,7 +130,7 @@ class GameState {
     // 更换技能
     equipSkill(slotIndex, skill) {
         if (slotIndex >= 0 && slotIndex < 4) {
-            this.player.skills[slotIndex] = { ...skill, currentCd: 0 };
+            this.player.skills[slotIndex] = { ...skill, currentPp: skill.pp || 0 };
             return true;
         }
         return false;
@@ -182,6 +185,20 @@ class GameState {
             }
             if (item.effect.defenseBoost) {
                 this.player.buffs.push({ type: 'defenseBoost', value: item.effect.defenseBoost, duration: item.effect.duration });
+            }
+            if (item.effect.restorePp) {
+                for (const skill of this.player.skills) {
+                    if (skill.pp) {
+                        skill.currentPp = Math.min(skill.pp, skill.currentPp + item.effect.restorePp);
+                    }
+                }
+            }
+            if (item.effect.restoreAllPp) {
+                for (const skill of this.player.skills) {
+                    if (skill.pp) {
+                        skill.currentPp = skill.pp;
+                    }
+                }
             }
             this.player.inventory.splice(idx, 1);
             return true;
@@ -255,7 +272,10 @@ class GameState {
         this.player.sectId = data.player.sectId;
         this.player.baseAttrs = data.player.baseAttrs;
         this.player.bonusAttrs = data.player.bonusAttrs;
-        this.player.skills = (data.player.skills || []).map(id => ({ ...getSkill(id), currentCd: 0 }));
+        this.player.skills = (data.player.skills || []).map(id => {
+            const skill = getSkill(id);
+            return { ...skill, currentPp: skill.pp || 0 };
+        });
         this.player.equipment = data.player.equipment || [];
         this.player.inventory = data.player.inventory || [];
         

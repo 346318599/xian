@@ -230,7 +230,7 @@
 
     <!-- 奖励弹窗 -->
     <div class="modal" id="reward-modal">
-        <div class="modal-content">
+        <div class="modal-content wide">
             <div class="modal-header">
                 <h2>战胜奖励</h2>
                 <button class="close-btn" id="reward-close-btn">×</button>
@@ -238,6 +238,18 @@
             <div class="modal-body">
                 <p id="reward-desc">选择一项奖励</p>
                 <div class="reward-grid" id="reward-grid"></div>
+
+                <div class="reward-shop-section">
+                    <div class="reward-shop-header">
+                        <h3>神秘商店</h3>
+                        <p class="shop-money">当前金钱：<span id="reward-shop-money">0</span></p>
+                    </div>
+                    <div class="shop-grid" id="reward-shop-grid"></div>
+                    <div class="shop-actions">
+                        <button class="big-btn" id="reward-refresh-shop-btn">刷新商店（<span id="reward-refresh-cost">50</span>）</button>
+                    </div>
+                </div>
+
                 <div class="reward-actions">
                     <button class="big-btn primary" id="next-level-btn">下一关</button>
                 </div>

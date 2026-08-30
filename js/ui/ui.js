@@ -172,12 +172,12 @@ const UI = {
     renderSkillBar() {
         const actions = document.getElementById('combat-actions');
         actions.innerHTML = game.player.skills.map((skill, index) => {
-            const disabled = skill.currentCd > 0 || game.player.mp < skill.mpCost || combat.finished;
-            const cdText = skill.currentCd > 0 ? `冷却 ${skill.currentCd}` : '';
+            const disabled = skill.currentPp <= 0 || game.player.mp < skill.mpCost || combat.finished;
+            const ppText = `PP ${skill.currentPp}/${skill.pp || 0}`;
             return `
                 <button class="skill-btn" onclick="useSkill(${index})" ${disabled ? 'disabled' : ''}>
                     <span class="skill-name">${skill.name}</span>
-                    <span class="skill-meta">${skill.element} | 耗蓝 ${skill.mpCost} ${cdText}</span>
+                    <span class="skill-meta">${skill.element} | 耗蓝 ${skill.mpCost} | ${ppText}</span>
                 </button>
             `;
         }).join('');
@@ -427,6 +427,24 @@ const UI = {
         `).join('');
         
         document.getElementById('next-level-btn').disabled = selectedRewardIndex === null;
+        
+        // 渲染奖励弹窗中的商店
+        this.renderRewardShop();
+    },
+
+    // 渲染奖励弹窗中的商店
+    renderRewardShop() {
+        document.getElementById('reward-shop-money').textContent = game.money;
+        document.getElementById('reward-refresh-cost').textContent = game.shopRefreshCost;
+        
+        const grid = document.getElementById('reward-shop-grid');
+        grid.innerHTML = game.shopItems.map(item => `
+            <div class="shop-item" onclick="buyRewardShopItem('${item.id}')">
+                <div class="name ${item.rarity.color}">${item.name}</div>
+                <div class="desc">${item.desc}</div>
+                <div class="price">${item.shopPrice} 金钱</div>
+            </div>
+        `).join('');
     },
 
     // 渲染技能装备弹窗

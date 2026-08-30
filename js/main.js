@@ -90,6 +90,9 @@ function bindEvents() {
     // 商店刷新
     document.getElementById('refresh-shop-btn').addEventListener('click', refreshShop);
     
+    // 奖励弹窗中的商店刷新
+    document.getElementById('reward-refresh-shop-btn').addEventListener('click', refreshRewardShop);
+    
     // 存档读档
     document.getElementById('save-btn').addEventListener('click', () => {
         const result = saveSystem.save();
@@ -236,6 +239,9 @@ function onCombatWin() {
     selectedRewardIndex = null;
     pendingSkillReward = null;
     
+    // 生成商店商品
+    shop.open(game.level, luck);
+    
     // Boss掉落抽奖券
     if (enemy.isBoss || enemy.isBigBoss) {
         if (enemy.isBigBoss) {
@@ -357,6 +363,31 @@ function buyShopItem(itemId) {
     const result = shop.buy(item);
     if (result.success) {
         UI.renderShop();
+        UI.updateHeader();
+        UI.showMessage(result.message);
+    } else {
+        UI.showMessage(result.message);
+    }
+}
+
+// 刷新奖励弹窗中的商店
+function refreshRewardShop() {
+    const luck = game.getTotalAttr('luck');
+    if (shop.refresh(game.level, luck)) {
+        UI.renderRewardShop();
+    } else {
+        UI.showMessage('金钱不足');
+    }
+}
+
+// 购买奖励弹窗中的商店物品
+function buyRewardShopItem(itemId) {
+    const item = game.shopItems.find(i => i.id === itemId);
+    if (!item) return;
+    
+    const result = shop.buy(item);
+    if (result.success) {
+        UI.renderRewardShop();
         UI.updateHeader();
         UI.showMessage(result.message);
     } else {

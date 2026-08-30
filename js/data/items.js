@@ -89,6 +89,35 @@ const ITEM_DB = {
         desc: '死亡时自动复活，回复50%生命'
     },
 
+    // 恢复 PP 值
+    pp_pill_small: {
+        id: 'pp_pill_small',
+        name: '凝神散',
+        type: ITEM_TYPES.CONSUMABLE,
+        rarity: RARITIES.COMMON,
+        price: 50,
+        effect: { restorePp: 2 },
+        desc: '恢复所有技能 2 点 PP'
+    },
+    pp_pill_medium: {
+        id: 'pp_pill_medium',
+        name: '凝神丹',
+        type: ITEM_TYPES.CONSUMABLE,
+        rarity: RARITIES.UNCOMMON,
+        price: 120,
+        effect: { restorePp: 5 },
+        desc: '恢复所有技能 5 点 PP'
+    },
+    pp_pill_full: {
+        id: 'pp_pill_full',
+        name: '九转凝神丹',
+        type: ITEM_TYPES.CONSUMABLE,
+        rarity: RARITIES.RARE,
+        price: 250,
+        effect: { restoreAllPp: true },
+        desc: '恢复所有技能全部 PP'
+    },
+
     // 抽奖券
     normal_ticket: {
         id: 'normal_ticket',
@@ -221,16 +250,26 @@ function getItem(itemId) {
 function generateShopItems(level, luck) {
     const items = [];
     const pool = Object.values(ITEM_DB).concat(Object.values(EQUIPMENT_DB));
+    const ppPills = Object.values(ITEM_DB).filter(i => i.id.startsWith('pp_pill_'));
     
-    // 基础4个商品
-    for (let i = 0; i < 4; i++) {
+    // 固定包含 1 个 PP 恢复道具
+    if (ppPills.length > 0) {
+        const ppItem = ppPills[Math.floor(Math.random() * ppPills.length)];
+        items.push({ ...ppItem, shopPrice: calculateShopPrice(ppItem.price, level) });
+    }
+    
+    // 再随机生成 3 个商品
+    for (let i = 0; i < 3; i++) {
         const item = pool[Math.floor(Math.random() * pool.length)];
-        // 根据关卡和气运提升稀有度
-        let price = item.price;
-        if (level > 100) price = Math.floor(price * 1.5);
-        if (level > 200) price = Math.floor(price * 2);
-        items.push({ ...item, shopPrice: price });
+        items.push({ ...item, shopPrice: calculateShopPrice(item.price, level) });
     }
     
     return items;
+}
+
+function calculateShopPrice(basePrice, level) {
+    let price = basePrice;
+    if (level > 100) price = Math.floor(price * 1.5);
+    if (level > 200) price = Math.floor(price * 2);
+    return price;
 }

@@ -261,7 +261,7 @@ function generateEnemy(level) {
         isBoss: template.isBoss || false,
         isBigBoss: template.isBigBoss || false,
         isFinalBoss: template.isFinalBoss || false,
-        skillCds: new Array(template.skills.length).fill(0),
+        skillPp: template.skills.map(s => getSkill(s).pp || 0),
         buffs: []
     };
     

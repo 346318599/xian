@@ -95,12 +95,12 @@ class CombatSystem {
             }
             // 压制效果
             if (elementMultiplier === 0.7 && Math.random() < 0.3) {
-                this.log('你被压制，技能冷却+1！', 'info');
-                // 随机增加一个技能CD
-                const availableSkills = game.player.skills.filter(s => s.currentCd === 0);
+                this.log('你被压制，PP 值被削弱！', 'info');
+                // 随机减少一个技能 PP
+                const availableSkills = game.player.skills.filter(s => s.currentPp > 0);
                 if (availableSkills.length > 0) {
                     const target = availableSkills[Math.floor(Math.random() * availableSkills.length)];
-                    target.currentCd++;
+                    target.currentPp--;
                 }
             }
         }
@@ -137,14 +137,17 @@ class CombatSystem {
         if (this.finished) return null;
         
         const skill = game.player.skills[skillIndex];
-        if (!skill || skill.currentCd > 0) return null;
+        if (!skill || skill.currentPp <= 0) {
+            this.log('PP 值不足，无法使用该技能！', 'info');
+            return null;
+        }
         if (game.player.mp < skill.mpCost) {
             this.log('内力不足！', 'info');
             return null;
         }
         
         game.player.mp -= skill.mpCost;
-        skill.currentCd = skill.cd;
+        skill.currentPp--;
         
         // 记录功法收集
         game.collectSkill(skill.id);
@@ -257,11 +260,6 @@ class CombatSystem {
         // 处理玩家BUFF
         this.processBuffs(true);
         
-        // 减少技能CD
-        for (const skill of game.player.skills) {
-            if (skill.currentCd > 0) skill.currentCd--;
-        }
-        
         // 敌人回合
         const enemyResult = this.enemyTurn();
         return { ...enemyResult, damageInfo: this.lastPlayerDamage };
@@ -283,10 +281,10 @@ class CombatSystem {
         
         // 敌人选择技能
         let availableSkills = this.enemy.skills.map((s, i) => ({ skill: s, index: i }))
-            .filter(item => this.enemy.skillCds[item.index] <= 0);
+            .filter(item => this.enemy.skillPp[item.index] > 0);
         
         if (availableSkills.length === 0) {
-            // 全部CD中，使用普通攻击
+            // PP 耗尽，使用普通攻击
             availableSkills = [{ skill: getSkill('basic_dao'), index: -1 }];
         }
         
@@ -294,7 +292,7 @@ class CombatSystem {
         const skill = chosen.skill;
         
         if (chosen.index >= 0) {
-            this.enemy.skillCds[chosen.index] = skill.cd;
+            this.enemy.skillPp[chosen.index]--;
         }
         
         const result = this.calculateDamage(this.enemy, game.player, skill, false);
@@ -329,11 +327,6 @@ class CombatSystem {
         
         // 处理敌人BUFF
         this.processBuffs(false);
-        
-        // 减少敌人技能CD
-        for (let i = 0; i < this.enemy.skillCds.length; i++) {
-            if (this.enemy.skillCds[i] > 0) this.enemy.skillCds[i]--;
-        }
         
         // 玄冰心法内力回复
         if (game.player.sectId === 'xuanbing') {

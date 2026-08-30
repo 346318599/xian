@@ -1333,6 +1333,29 @@ body {
     gap: 1.5vw;
 }
 
+.reward-shop-section {
+    margin-top: 2.5vh;
+    padding-top: 2vh;
+    border-top: 1px solid var(--panel-border);
+}
+
+.reward-shop-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.2vh;
+}
+
+.reward-shop-header h3 {
+    font-size: 1.8vh;
+    color: var(--gold);
+    letter-spacing: 0.2vh;
+}
+
+.reward-shop-header .shop-money {
+    margin-bottom: 0;
+}
+
 .gacha-pools {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
